@@ -1,0 +1,25 @@
+name: Bug report
+description: Something isn't working right
+labels: [bug]
+body:
+  - type: input
+    id: module-version
+    attributes: {label: Module version, placeholder: "1.0.0"}
+    validations: {required: true}
+  - type: input
+    id: foundry-version
+    attributes: {label: Foundry version and system, placeholder: "v14 build 369, dnd5e 5.3.3"}
+    validations: {required: true}
+  - type: input
+    id: hardware
+    attributes: {label: Touchscreen or display, placeholder: "e.g. 43-inch infrared frame, Windows 11"}
+  - type: textarea
+    id: what
+    attributes: {label: What happened, and what did you expect?}
+    validations: {required: true}
+  - type: textarea
+    id: steps
+    attributes: {label: Steps to reproduce}
+  - type: textarea
+    id: modules
+    attributes: {label: Other active modules}

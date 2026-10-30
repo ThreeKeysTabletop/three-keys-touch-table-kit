@@ -1,0 +1,147 @@
+# When module.json's version has no v<version> tag yet, zip the module and
+# publish a GitHub Release so the manifest and download URLs in module.json resolve.
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Decide whether this version needs a release
+        id: meta
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          version="$(python3 -c 'import json; print(json.load(open("module.json"))["version"])')"
+          if [[ ! "$version" =~ ^[0-9A-Za-z][0-9A-Za-z._+-]*$ ]]; then
+            echo "Refusing unexpected module.json version: ${version}" >&2
+            exit 1
+          fi
+          tag="v${version}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+          status=0
+          body="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${tag}" 2>&1)" || status=$?
+          if [[ "$status" -eq 0 ]]; then
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "Tag ${tag} already exists; skipping release."
+          elif [[ "$body" == *"Not Found"* ]]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "No tag ${tag}; will create the release."
+          else
+            echo "Could not look up tag ${tag} (exit ${status}):" >&2
+            echo "$body" >&2
+            exit 1
+          fi
+
+      - name: Zip the module
+        if: steps.meta.outputs.release == 'true'
+        run: |
+          set -euo pipefail
+          # Files at the zip root. tests/, .github/, and build.sh are not inputs.
+          python3 - <<'PY'
+          import os
+          import zipfile
+
+          include = [
+              "module.json",
+              "scripts",
+              "styles",
+              "lang",
+              "assets",
+              "README.md",
+              "CHANGELOG.md",
+              "LICENSE",
+          ]
+          out = "three-keys-touch-table-kit.zip"
+          with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
+              for path in include:
+                  if os.path.isdir(path):
+                      for root, _, files in os.walk(path):
+                          for name in files:
+                              filename = os.path.join(root, name)
+                              zf.write(filename, filename.replace(os.sep, "/"))
+                  elif os.path.isfile(path):
+                      zf.write(path, path)
+                  else:
+                      raise SystemExit(f"missing release path: {path}")
+
+          required = {
+              "module.json",
+              "README.md",
+              "CHANGELOG.md",
+              "LICENSE",
+              "scripts/main.mjs",
+              "styles/touch-table-kit.css",
+              "lang/en.json",
+              "assets/icon.png",
+          }
+          with zipfile.ZipFile(out) as zf:
+              names = set(zf.namelist())
+          missing = sorted(required - names)
+          banned = sorted(
+              name
+              for name in names
+              if name == "build.sh"
+              or name.startswith("tests/")
+              or name.startswith(".github/")
+              or name.startswith("three-keys-touch-table-kit/")
+          )
+          if missing or banned:
+              raise SystemExit(f"bad zip missing={missing} banned={banned} names={sorted(names)}")
+          print("zip entries:")
+          for name in sorted(names):
+              print(f"  {name}")
+          PY
+
+      - name: Extract changelog notes
+        if: steps.meta.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          version = os.environ["VERSION"]
+          text = Path("CHANGELOG.md").read_text(encoding="utf-8")
+          match = re.search(
+              rf"(?ms)^## {re.escape(version)}\b.*?(?=^## |\Z)",
+              text,
+          )
+          if not match:
+              raise SystemExit(f"CHANGELOG.md has no section for {version}")
+          notes = match.group(0).strip() + "\n"
+          Path(os.environ["RUNNER_TEMP"], "release-notes.md").write_text(notes, encoding="utf-8")
+          print(notes)
+          PY
+
+      - name: Create tag and GitHub Release
+        if: steps.meta.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" \
+            three-keys-touch-table-kit.zip \
+            module.json \
+            --target "$GITHUB_SHA" \
+            --title "$TAG" \
+            --latest \
+            --notes-file "${RUNNER_TEMP}/release-notes.md"

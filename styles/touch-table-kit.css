@@ -1,0 +1,36 @@
+/* Three Keys Touch Table Kit */
+:root { --tktt-scale: 1; }
+body.tktt-touch #board { touch-action: none; -webkit-user-select: none; user-select: none; }
+
+/* Declutter: this client only */
+body.tktt-declutter #sidebar,
+body.tktt-declutter #scene-navigation,
+body.tktt-declutter #navigation,
+body.tktt-declutter #hotbar,
+body.tktt-declutter #players,
+body.tktt-declutter #chat-notifications { display: none !important; }
+
+/* Table Display: no controls at all */
+body.tktt-table.tktt-declutter #scene-controls,
+body.tktt-table.tktt-declutter #ui-left #controls,
+body.tktt-table.tktt-declutter #camera-views,
+body.tktt-table.tktt-declutter #performance-stats { display: none !important; }
+
+/* Large touch targets */
+body.tktt-scaled #scene-controls { zoom: var(--tktt-scale); }
+body.tktt-scaled #sidebar-tabs, body.tktt-scaled #sidebar nav.tabs { zoom: var(--tktt-scale); }
+body.tktt-scaled #token-hud .control-icon {
+  width: calc(36px * var(--tktt-scale)); height: calc(36px * var(--tktt-scale));
+  font-size: calc(1em * var(--tktt-scale)); line-height: calc(36px * var(--tktt-scale));
+}
+
+/* Floating buttons */
+#tktt-buttons { position: fixed; right: 16px; bottom: 16px; z-index: 200; display: flex; flex-direction: column; gap: 12px; }
+body:not(.tktt-declutter) #tktt-buttons { right: calc(var(--sidebar-width, 300px) + 24px); }
+.tktt-fab {
+  width: calc(56px * var(--tktt-scale)); height: calc(56px * var(--tktt-scale)); border-radius: 50%;
+  display: grid; place-items: center; padding: 0; margin: 0;
+  font-size: calc(22px * var(--tktt-scale)); color: #f3e9d2; background: rgba(20, 16, 28, 0.85);
+  border: 2px solid #c9a24a; box-shadow: 0 2px 10px rgba(0,0,0,0.6); touch-action: manipulation; cursor: pointer;
+}
+.tktt-fab:active { transform: scale(0.94); }

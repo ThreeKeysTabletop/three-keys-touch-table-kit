@@ -1,0 +1,25 @@
+{
+  "TKTT": {
+    "Title": "Three Keys Touch Table Kit",
+    "Settings": {
+      "tableUser": { "Name": "Table Display user", "Hint": "The user account logged in on the touchscreen table. That client becomes a Table Display: decluttered, touch-optimized, and the only client where touch handlers run (unless a client forces them on).", "None": "(none)" },
+      "tableAllowUndeclutter": { "Name": "Table may un-declutter", "Hint": "Show the declutter toggle button on the Table Display so it can reveal the sidebar and hotbar. Off keeps the table permanently decluttered." },
+      "viewSync": { "Name": "GM view sync", "Hint": "Let the GM drive the Table Display's pan and zoom. Manual: push with the GM button or keybinding. Follow: the table follows the GM's view continuously.", "Off": "Off", "Manual": "Manual push", "Follow": "Follow GM view" },
+      "compatMode": { "Name": "Compatibility mode", "Hint": "Ignore touches that start on elements of known conflicting modules (Monk's Token Bar and others) and on the selectors below, so their own drag handling works." },
+      "conflictSelectors": { "Name": "Extra conflict selectors", "Hint": "Comma-separated CSS selectors where touch handlers are disabled in compatibility mode." },
+      "touchMode": { "Name": "Touch handlers on this client", "Hint": "Auto: only on the Table Display client. On: always (single-window touch setups). Off: never.", "Auto": "Auto (Table Display only)", "On": "On", "Off": "Off" },
+      "tableDisplay": { "Name": "Force Table Display on this client", "Hint": "Treat this browser as the Table Display even if it is not logged in as the Table user." },
+      "uiScale": { "Name": "Touch target scale", "Hint": "Scales scene controls, sidebar tabs and token HUD buttons on this client. 1 = Foundry default." },
+      "panSmoothing": { "Name": "Pan/zoom smoothing", "Hint": "0 = raw, higher = smoother but laggier. Raise on cheap infrared frames that jitter." },
+      "deadzone": { "Name": "Two-finger deadzone (px)", "Hint": "Finger movement below this distance is ignored before a pan or pinch starts." },
+      "tapTolerance": { "Name": "Tap tolerance (px)", "Hint": "How far a finger may drift and still count as a tap." },
+      "longPressMs": { "Name": "Long-press time (ms)", "Hint": "Hold this long on a token to run the long-press action, or on empty space to start the ruler." },
+      "longPressAction": { "Name": "Long-press on token", "Hint": "What a long-press on a token does. A short tap only ever selects.", "Sheet": "Open actor sheet", "Hud": "Open token HUD", "None": "Nothing" },
+      "showButton": { "Name": "Show floating declutter button", "Hint": "Show the round floating button that toggles declutter mode on this client." },
+      "declutter": { "Name": "Declutter mode", "Hint": "Hide sidebar, navigation, hotbar and players list on this client." }
+    },
+    "Keys": { "Declutter": "Toggle declutter mode", "SyncView": "Push my view to the Table Display" },
+    "Button": { "Declutter": "Toggle declutter", "Sync": "Push view to table" },
+    "Notify": { "MoveBlocked": "That move is blocked.", "Synced": "Table view updated.", "NoTable": "No Table Display user is set." }
+  }
+}

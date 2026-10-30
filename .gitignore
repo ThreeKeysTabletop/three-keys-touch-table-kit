@@ -1,0 +1,6 @@
+node_modules/
+dist/
+
+# Test output (screenshots and results.json from tests/touch-table.test.mjs)
+foundry-test/tests/out/
+tests/out/

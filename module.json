@@ -1,0 +1,20 @@
+{
+  "id": "three-keys-touch-table-kit",
+  "title": "Three Keys Touch Table Kit",
+  "description": "Touchscreen table toolkit: a dedicated Table Display client with native touch tap-select, tap-move, hold-to-measure, smoothed pan and pinch-zoom, large touch targets, declutter mode and GM-controlled view sync. System agnostic.",
+  "version": "1.0.0",
+  "authors": [{ "name": "Three Keys Tabletop", "url": "https://github.com/ThreeKeysTabletop" }],
+  "compatibility": { "minimum": "13", "verified": "14" },
+  "esmodules": ["scripts/main.mjs"],
+  "styles": ["styles/touch-table-kit.css"],
+  "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
+  "socket": true,
+  "media": [{ "type": "icon", "url": "modules/three-keys-touch-table-kit/assets/icon.png" }],
+  "url": "https://github.com/ThreeKeysTabletop/three-keys-touch-table-kit",
+  "bugs": "https://github.com/ThreeKeysTabletop/three-keys-touch-table-kit/issues",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md",
+  "manifest": "https://github.com/ThreeKeysTabletop/three-keys-touch-table-kit/releases/latest/download/module.json",
+  "download": "https://github.com/ThreeKeysTabletop/three-keys-touch-table-kit/releases/download/v1.0.0/three-keys-touch-table-kit.zip"
+}

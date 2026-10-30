@@ -1,25 +1,160 @@
 {
   "TKTT": {
-    "Title": "Three Keys Touch Table Kit",
+    "Title": "Three Keys Table Suite",
     "Settings": {
-      "tableUser": { "Name": "Table Display user", "Hint": "The user account logged in on the touchscreen table. That client becomes a Table Display: decluttered, touch-optimized, and the only client where touch handlers run (unless a client forces them on).", "None": "(none)" },
-      "tableAllowUndeclutter": { "Name": "Table may un-declutter", "Hint": "Show the declutter toggle button on the Table Display so it can reveal the sidebar and hotbar. Off keeps the table permanently decluttered." },
-      "viewSync": { "Name": "GM view sync", "Hint": "Let the GM drive the Table Display's pan and zoom. Manual: push with the GM button or keybinding. Follow: the table follows the GM's view continuously.", "Off": "Off", "Manual": "Manual push", "Follow": "Follow GM view" },
-      "compatMode": { "Name": "Compatibility mode", "Hint": "Ignore touches that start on elements of known conflicting modules (Monk's Token Bar and others) and on the selectors below, so their own drag handling works." },
-      "conflictSelectors": { "Name": "Extra conflict selectors", "Hint": "Comma-separated CSS selectors where touch handlers are disabled in compatibility mode." },
-      "touchMode": { "Name": "Touch handlers on this client", "Hint": "Auto: only on the Table Display client. On: always (single-window touch setups). Off: never.", "Auto": "Auto (Table Display only)", "On": "On", "Off": "Off" },
-      "tableDisplay": { "Name": "Force Table Display on this client", "Hint": "Treat this browser as the Table Display even if it is not logged in as the Table user." },
-      "uiScale": { "Name": "Touch target scale", "Hint": "Scales scene controls, sidebar tabs and token HUD buttons on this client. 1 = Foundry default." },
-      "panSmoothing": { "Name": "Pan/zoom smoothing", "Hint": "0 = raw, higher = smoother but laggier. Raise on cheap infrared frames that jitter." },
-      "deadzone": { "Name": "Two-finger deadzone (px)", "Hint": "Finger movement below this distance is ignored before a pan or pinch starts." },
-      "tapTolerance": { "Name": "Tap tolerance (px)", "Hint": "How far a finger may drift and still count as a tap." },
-      "longPressMs": { "Name": "Long-press time (ms)", "Hint": "Hold this long on a token to run the long-press action, or on empty space to start the ruler." },
-      "longPressAction": { "Name": "Long-press on token", "Hint": "What a long-press on a token does. A short tap only ever selects.", "Sheet": "Open actor sheet", "Hud": "Open token HUD", "None": "Nothing" },
-      "showButton": { "Name": "Show floating declutter button", "Hint": "Show the round floating button that toggles declutter mode on this client." },
-      "declutter": { "Name": "Declutter mode", "Hint": "Hide sidebar, navigation, hotbar and players list on this client." }
+      "tableUser": {
+        "Name": "Table Display user",
+        "Hint": "The user account logged in on the touchscreen table. That client becomes a Table Display: decluttered, touch-optimized, and the only client where touch handlers run (unless a client forces them on).",
+        "None": "(none)"
+      },
+      "tableAllowUndeclutter": {
+        "Name": "Table may un-declutter",
+        "Hint": "Show the declutter toggle button on the Table Display so it can reveal the sidebar and hotbar. Off keeps the table permanently decluttered."
+      },
+      "viewSync": {
+        "Name": "GM view sync",
+        "Hint": "Let the GM drive the Table Display's pan and zoom. Manual: push with the GM button or keybinding. Follow: the table follows the GM's view continuously.",
+        "Off": "Off",
+        "Manual": "Manual push",
+        "Follow": "Follow GM view"
+      },
+      "compatMode": {
+        "Name": "Compatibility mode",
+        "Hint": "Ignore touches that start on elements of known conflicting modules (Monk's Token Bar and others) and on the selectors below, so their own drag handling works."
+      },
+      "conflictSelectors": {
+        "Name": "Extra conflict selectors",
+        "Hint": "Comma-separated CSS selectors where touch handlers are disabled in compatibility mode."
+      },
+      "touchMode": {
+        "Name": "Touch handlers on this client",
+        "Hint": "Auto: only on the Table Display client. On: always (single-window touch setups). Off: never.",
+        "Auto": "Auto (Table Display only)",
+        "On": "On",
+        "Off": "Off"
+      },
+      "tableDisplay": {
+        "Name": "Force Table Display on this client",
+        "Hint": "Treat this browser as the Table Display even if it is not logged in as the Table user."
+      },
+      "uiScale": {
+        "Name": "Touch target scale",
+        "Hint": "Scales scene controls, sidebar tabs and token HUD buttons on this client. 1 = Foundry default."
+      },
+      "panSmoothing": {
+        "Name": "Pan/zoom smoothing",
+        "Hint": "0 = raw, higher = smoother but laggier. Raise on cheap infrared frames that jitter."
+      },
+      "deadzone": {
+        "Name": "Two-finger deadzone (px)",
+        "Hint": "Finger movement below this distance is ignored before a pan or pinch starts."
+      },
+      "tapTolerance": {
+        "Name": "Tap tolerance (px)",
+        "Hint": "How far a finger may drift and still count as a tap."
+      },
+      "longPressMs": {
+        "Name": "Long-press time (ms)",
+        "Hint": "Hold this long on a token to run the long-press action, or on empty space to start the ruler."
+      },
+      "longPressAction": {
+        "Name": "Long-press on token",
+        "Hint": "What a long-press on a token does. A short tap only ever selects.",
+        "Sheet": "Open actor sheet",
+        "Hud": "Open token HUD",
+        "None": "Nothing"
+      },
+      "showButton": {
+        "Name": "Show floating declutter button",
+        "Hint": "Show the round floating button that toggles declutter mode on this client."
+      },
+      "declutter": {
+        "Name": "Declutter mode",
+        "Hint": "Hide sidebar, navigation, hotbar and players list on this client."
+      },
+      "displayPreset": {
+        "Name": "Display preset",
+        "Hint": "Applies tuned values for this kind of display once when chosen. TV: flat LCD/OLED touch panel. Projector: top-down projection (often with a camera or IR tracker that emulates a mouse). IR touch frame: infrared overlay frame, with palm, ghost-touch and bounce rejection. Rotation and mirror are never changed by a preset. Pick Custom to keep your own values.",
+        "Custom": "Custom (keep my values)",
+        "Tv": "TV / touch panel",
+        "Projector": "Projector (top-down)",
+        "IrFrame": "IR touch frame"
+      },
+      "displayRotation": {
+        "Name": "Display rotation",
+        "Hint": "Rotate the board on this client, for example when the projector or screen faces the other side of the table. Touches are remapped to match.",
+        "R0": "0°",
+        "R180": "180°"
+      },
+      "displayMirror": {
+        "Name": "Display mirror",
+        "Hint": "Mirror the board on this client, for rear projection or a mirror-folded projector. Touches are remapped to match.",
+        "None": "None",
+        "Horizontal": "Horizontal",
+        "Vertical": "Vertical"
+      },
+      "pointerTypes": {
+        "Name": "Accepted input",
+        "Hint": "Which pointer types count as fingers. Many IR frames and projector trackers report as a pen or as an emulated mouse.",
+        "Touch": "Touch only",
+        "TouchPen": "Touch and pen",
+        "All": "Touch, pen and mouse (touch-to-pointer frames)"
+      },
+      "palmSize": {
+        "Name": "Palm rejection size (px)",
+        "Hint": "Ignore and cancel when a contact is at least this wide, as reported by the frame. 0 = off. Not every frame reports contact size."
+      },
+      "maxContacts": {
+        "Name": "Maximum contacts",
+        "Hint": "Extra simultaneous contacts beyond this are ignored (resting hands, sleeves, ghost points)."
+      },
+      "minTapMs": {
+        "Name": "Ghost-touch filter (ms)",
+        "Hint": "Taps shorter than this are ignored as ghost touches. 0 = off."
+      },
+      "debounceMs": {
+        "Name": "Touch debounce (ms)",
+        "Hint": "Ignore a new touch this soon after the last one lifted at nearly the same spot, which stops IR frames from double-triggering. 0 = off."
+      },
+      "miniRings": {
+        "Name": "Mini base rings",
+        "Hint": "On the Table Display, draw a colored ring around each token's base in its owning player's color so players can find their mini. All also rings unowned tokens by disposition.",
+        "Off": "Off",
+        "Owned": "Player-owned tokens",
+        "All": "All tokens"
+      },
+      "miniHighlightMs": {
+        "Name": "Mini highlight time (ms)",
+        "Hint": "How long a selected or pinged token's base glows on the Table Display. 0 = off."
+      },
+      "miniInput": {
+        "Name": "Physical mini input (preview)",
+        "Hint": "Groundwork for physical miniature or marker trackers. Off ignores reports. Highlight lets a tracker module report detections through the API, which only highlights the matching token; nothing moves yet.",
+        "Off": "Off",
+        "Highlight": "Highlight reported minis"
+      }
     },
-    "Keys": { "Declutter": "Toggle declutter mode", "SyncView": "Push my view to the Table Display" },
-    "Button": { "Declutter": "Toggle declutter", "Sync": "Push view to table" },
-    "Notify": { "MoveBlocked": "That move is blocked.", "Synced": "Table view updated.", "NoTable": "No Table Display user is set." }
+    "Keys": {
+      "Declutter": "Toggle declutter mode",
+      "SyncView": "Push my view to the Table Display"
+    },
+    "Button": {
+      "Declutter": "Toggle declutter",
+      "Sync": "Push view to table",
+      "CloseHandout": "Close handout",
+      "ClearHandout": "Clear the Table Display handout"
+    },
+    "Notify": {
+      "MoveBlocked": "That move is blocked.",
+      "Synced": "Table view updated.",
+      "NoTable": "No Table Display user is set.",
+      "Preset": "Display preset applied: {name}.",
+      "HandoutSent": "Handout shown on the Table Display.",
+      "HandoutUnsupported": "Only text and image journal pages, or an image path, can be shown on the Table Display."
+    },
+    "Handout": {
+      "ShowPage": "Show page on Table Display",
+      "ShowEntry": "Show on Table Display"
+    }
   }
 }
